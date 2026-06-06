@@ -2,1459 +2,724 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wooddany Retratos · Catálogo de Obra</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>woodDany Pujol · Catálogo de Obra</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --warm:#7C3A1E; --warm2:#B07040; --warm-pale:#F8F2EA; --warm-mid:#E5D0B8;
+  --ink:#1C1208; --ink2:#5C4030; --ink3:#9C8070;
+  --surf:#FDFAF6; --surf2:#F4EDE2; --surf3:#EAE0D4;
+  --bdr:rgba(124,58,30,0.12); --bdr2:rgba(124,58,30,0.22);
+  --r:12px; --r2:8px;
+  --fd:"Cormorant Garamond",Georgia,serif;
+  --fb:"DM Sans",system-ui,sans-serif;
+  --sh:0 2px 20px rgba(124,58,30,0.10);
+  --shL:0 8px 48px rgba(124,58,30,0.15);
+  --sb:220px;
+}
+html,body{height:100%;}
+body{font-family:var(--fb);background:var(--surf);color:var(--ink);min-height:100vh;font-size:15px;line-height:1.6;overflow-x:hidden;}
 
-:root {
-  --warm: #7C4A2D;
-  --warm-light: #B07040;
-  --warm-pale: #F7F0E8;
-  --warm-mid: #E8D5C0;
-  --ink: #1C1410;
-  --ink-mid: #5C4A3A;
-  --ink-light: #9C8A7A;
-  --surface: #FDFAF7;
-  --surface2: #F2EBE0;
-  --surface3: #E8DDD0;
-  --border: rgba(124,74,45,0.15);
-  --border-mid: rgba(124,74,45,0.25);
-  --radius: 12px;
-  --radius-sm: 8px;
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'DM Sans', system-ui, sans-serif;
-  --shadow: 0 2px 16px rgba(124,74,45,0.10);
-  --shadow-lg: 0 8px 40px rgba(124,74,45,0.15);
-}
+/* ─── LOGIN ─── */
+#login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--warm-pale);padding:1.5rem;}
+.login-card{background:var(--surf);border-radius:20px;padding:2.5rem 2rem;width:100%;max-width:360px;box-shadow:var(--shL);text-align:center;}
+.login-logo{max-width:200px;width:100%;height:auto;display:block;margin:0 auto 6px;background:transparent;}
+.login-sub{font-size:11px;color:var(--ink3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:2rem;}
+.login-card input{width:100%;padding:13px 16px;border:1.5px solid var(--bdr2);border-radius:var(--r2);font-family:var(--fb);font-size:15px;background:var(--surf);color:var(--ink);margin-bottom:10px;outline:none;transition:border-color .2s;text-align:center;letter-spacing:.15em;}
+.login-card input:focus{border-color:var(--warm);}
+.login-btn{width:100%;padding:13px;background:var(--warm);color:#fff;border:none;border-radius:var(--r2);font-family:var(--fb);font-size:15px;font-weight:500;cursor:pointer;}
+.login-btn:hover{background:var(--warm2);}
+.login-err{color:#b83030;font-size:13px;margin-top:10px;display:none;}
 
-body {
-  font-family: var(--font-body);
-  background: var(--surface);
-  color: var(--ink);
-  min-height: 100vh;
-  font-size: 15px;
-  line-height: 1.6;
-}
+/* ─── APP SHELL ─── */
+#app{display:none;min-height:100vh;}
 
-/* ── LOGIN ── */
-#login-screen {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--warm-pale);
-  padding: 2rem;
+/* SIDEBAR desktop */
+.sidebar{
+  position:fixed;left:0;top:0;bottom:0;width:var(--sb);
+  background:var(--ink);display:flex;flex-direction:column;z-index:100;
+  transition:transform .25s;
 }
-.login-card {
-  background: var(--surface);
-  border-radius: 20px;
-  padding: 3rem 2.5rem;
-  width: 100%;
-  max-width: 380px;
-  box-shadow: var(--shadow-lg);
-  text-align: center;
-}
-.login-logo {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--warm);
-  letter-spacing: 0.02em;
-  margin-bottom: 4px;
-}
-.login-sub {
-  font-size: 12px;
-  color: var(--ink-light);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 2.5rem;
-}
-.login-card input {
-  width: 100%;
-  padding: 14px 16px;
-  border: 1.5px solid var(--border-mid);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-body);
-  font-size: 15px;
-  background: var(--surface);
-  color: var(--ink);
-  margin-bottom: 12px;
-  outline: none;
-  transition: border-color 0.2s;
-  text-align: center;
-  letter-spacing: 0.15em;
-}
-.login-card input:focus { border-color: var(--warm); }
-.login-btn {
-  width: 100%;
-  padding: 14px;
-  background: var(--warm);
-  color: #fff;
-  border: none;
-  border-radius: var(--radius-sm);
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.login-btn:hover { background: var(--warm-light); }
-.login-error {
-  color: #c0392b;
-  font-size: 13px;
-  margin-top: 10px;
-  display: none;
-}
+.sb-brand{padding:1.4rem 1.5rem 1rem;border-bottom:1px solid rgba(255,255,255,.08);}
+.sb-logo{max-width:150px;width:100%;height:auto;display:block;filter:brightness(10);}
+.sb-sub{font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-top:5px;}
+.sb-nav{flex:1;padding:.75rem 0;overflow-y:auto;}
+.nav-it{display:flex;align-items:center;gap:10px;padding:11px 1.5rem;color:rgba(255,255,255,.5);font-size:13.5px;cursor:pointer;transition:all .15s;border-left:3px solid transparent;}
+.nav-it:hover{color:rgba(255,255,255,.9);background:rgba(255,255,255,.05);}
+.nav-it.active{color:#fff;border-left-color:var(--warm2);background:rgba(255,255,255,.07);}
+.nav-it i{font-size:18px;flex-shrink:0;}
+.sb-bot{padding:1rem 1.5rem 1.5rem;border-top:1px solid rgba(255,255,255,.08);}
+.logout-btn{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.35);cursor:pointer;background:none;border:none;font-family:var(--fb);transition:color .15s;}
+.logout-btn:hover{color:rgba(255,255,255,.7);}
 
-/* ── LAYOUT ── */
-#app { display: none; min-height: 100vh; }
+/* MAIN */
+.main{margin-left:var(--sb);min-height:100vh;width:calc(100% - var(--sb));}
+.pg-hdr{padding:2rem 2.5rem 1.5rem;border-bottom:1px solid var(--bdr);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;background:var(--surf);}
+.pg-title{font-family:var(--fd);font-size:2rem;font-weight:500;color:var(--ink);line-height:1.1;}
+.pg-sub{font-size:13px;color:var(--ink3);margin-top:4px;}
+.pg-actions{display:flex;gap:8px;flex-wrap:wrap;flex-shrink:0;}
+.pg-body{padding:2rem 2.5rem;}
 
-.sidebar {
-  position: fixed;
-  left: 0; top: 0; bottom: 0;
-  width: 220px;
-  background: var(--ink);
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  z-index: 100;
-}
-.sidebar-brand {
-  padding: 1.5rem 1.5rem 1rem;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-.sidebar-brand-name {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  font-weight: 500;
-  color: #fff;
-  letter-spacing: 0.03em;
-}
-.sidebar-brand-sub {
-  font-size: 10px;
-  color: rgba(255,255,255,0.4);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-top: 2px;
-}
-.sidebar-nav { flex: 1; padding: 1rem 0; }
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 11px 1.5rem;
-  color: rgba(255,255,255,0.55);
-  font-size: 13.5px;
-  font-weight: 400;
-  cursor: pointer;
-  transition: all 0.15s;
-  border-left: 3px solid transparent;
-}
-.nav-item:hover { color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.05); }
-.nav-item.active { color: #fff; border-left-color: var(--warm-light); background: rgba(255,255,255,0.07); }
-.nav-item i { font-size: 17px; }
-.sidebar-bottom {
-  padding: 1rem 1.5rem 1.5rem;
-  border-top: 1px solid rgba(255,255,255,0.08);
-}
-.logout-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  color: rgba(255,255,255,0.4);
-  cursor: pointer;
-  background: none;
-  border: none;
-  padding: 0;
-  font-family: var(--font-body);
-  transition: color 0.15s;
-}
-.logout-btn:hover { color: rgba(255,255,255,0.7); }
+/* VIEWS */
+.view{display:none;}
+.view.active{display:block;}
 
-.main {
-  margin-left: 220px;
-  min-height: 100vh;
-  background: var(--surface);
-}
-.page-header {
-  padding: 2rem 2.5rem 1.5rem;
-  border-bottom: 1px solid var(--border);
-  background: var(--surface);
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1rem;
-}
-.page-title {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 500;
-  color: var(--ink);
-  line-height: 1.1;
-}
-.page-sub { font-size: 13px; color: var(--ink-light); margin-top: 4px; }
-.page-content { padding: 2rem 2.5rem; }
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:2rem;}
+.stat-c{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);padding:1.1rem;}
+.stat-n{font-family:var(--fd);font-size:2rem;font-weight:500;color:var(--warm);line-height:1;}
+.stat-l{font-size:11px;color:var(--ink3);margin-top:5px;text-transform:uppercase;letter-spacing:.05em;}
 
-/* ── VIEWS ── */
-.view { display: none; }
-.view.active { display: block; }
+/* YEAR TABS */
+.yr-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.5rem;}
+.yr-tab{padding:5px 13px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;border:1.5px solid var(--bdr2);background:none;color:var(--ink2);transition:all .15s;font-family:var(--fb);}
+.yr-tab.active,.yr-tab:hover{background:var(--warm);border-color:var(--warm);color:#fff;}
+.yr-tab.active{pointer-events:none;}
 
-/* ── STATS ── */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 12px;
-  margin-bottom: 2rem;
-}
-.stat-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.25rem;
-}
-.stat-num {
-  font-family: var(--font-display);
-  font-size: 2.2rem;
-  font-weight: 500;
-  color: var(--warm);
-  line-height: 1;
-}
-.stat-label { font-size: 12px; color: var(--ink-light); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+/* OBRAS GRID */
+.obras-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px;}
+.obra-c{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:box-shadow .2s,transform .2s,border-color .2s;}
+.obra-c:hover{box-shadow:var(--sh);transform:translateY(-2px);border-color:var(--warm2);}
+.obra-th{aspect-ratio:1;background:var(--warm-pale);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.obra-th img{width:100%;height:100%;object-fit:cover;}
+.obra-th-ph{width:60px;height:60px;border-radius:50%;background:var(--warm-mid);display:flex;align-items:center;justify-content:center;}
+.obra-th-ph i{font-size:24px;color:var(--warm);}
+.obra-badge{position:absolute;top:7px;left:7px;background:rgba(28,18,8,.75);color:#fff;font-size:10px;font-weight:500;padding:3px 7px;border-radius:10px;}
+.obra-inc{position:absolute;top:7px;right:7px;background:rgba(200,150,30,.9);color:#3D2800;font-size:10px;padding:3px 7px;border-radius:10px;}
+.obra-info{padding:10px 12px;}
+.obra-tit{font-size:13.5px;font-weight:500;color:var(--ink);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.obra-met{font-size:11px;color:var(--ink3);}
+.add-c{background:none;border:2px dashed var(--bdr2);border-radius:var(--r);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;color:var(--ink3);transition:all .2s;font-family:var(--fb);min-height:180px;}
+.add-c:hover{border-color:var(--warm);color:var(--warm);background:var(--warm-pale);}
+.add-c i{font-size:26px;}
+.add-c span{font-size:13px;}
 
-/* ── YEAR TABS ── */
-.year-tabs {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-bottom: 1.5rem;
-}
-.year-tab {
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  border: 1.5px solid var(--border-mid);
-  background: none;
-  color: var(--ink-mid);
-  transition: all 0.15s;
-  font-family: var(--font-body);
-}
-.year-tab.active, .year-tab:hover {
-  background: var(--warm);
-  border-color: var(--warm);
-  color: #fff;
-}
-.year-tab.active { pointer-events: none; }
+/* BUTTONS */
+.btn-p{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;background:var(--warm);color:#fff;border:none;border-radius:var(--r2);font-family:var(--fb);font-size:13px;font-weight:500;cursor:pointer;transition:background .15s;white-space:nowrap;}
+.btn-p:hover{background:var(--warm2);}
+.btn-s{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;background:none;color:var(--ink2);border:1.5px solid var(--bdr2);border-radius:var(--r2);font-family:var(--fb);font-size:13px;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.btn-s:hover{border-color:var(--warm);color:var(--warm);}
+.btn-d{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;background:none;color:#b83030;border:1.5px solid rgba(184,48,48,.3);border-radius:var(--r2);font-family:var(--fb);font-size:13px;cursor:pointer;white-space:nowrap;}
+.btn-d:hover{background:rgba(184,48,48,.08);}
 
-/* ── OBRAS GRID ── */
-.obras-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 16px;
-}
-.obra-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  cursor: pointer;
-  transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
-}
-.obra-card:hover {
-  box-shadow: var(--shadow);
-  transform: translateY(-2px);
-  border-color: var(--warm-light);
-}
-.obra-thumb {
-  aspect-ratio: 1;
-  background: var(--warm-pale);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-}
-.obra-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.obra-thumb-placeholder {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  background: var(--warm-mid);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.obra-thumb-placeholder i { font-size: 28px; color: var(--warm); }
-.obra-num-badge {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  background: rgba(28,20,16,0.75);
-  color: #fff;
-  font-size: 10px;
-  font-weight: 500;
-  padding: 3px 8px;
-  border-radius: 10px;
-  backdrop-filter: blur(4px);
-}
-.obra-incomplete {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: rgba(239,180,50,0.9);
-  color: #5C3D00;
-  font-size: 10px;
-  padding: 3px 7px;
-  border-radius: 10px;
-}
-.obra-info { padding: 12px 14px; }
-.obra-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
-.obra-meta { font-size: 11px; color: var(--ink-light); }
+/* FORM */
+.form-card{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);padding:1.5rem;margin-bottom:1.25rem;}
+.form-sec-t{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);margin-bottom:1.1rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.ff{display:flex;flex-direction:column;gap:5px;}
+.ff.full{grid-column:1/-1;}
+.flabel{font-size:12px;font-weight:500;color:var(--ink2);display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
+.badge{font-size:10px;padding:2px 6px;border-radius:10px;font-weight:500;}
+.bp{background:#EAF3DE;color:#3B6D11;}
+.bpr{background:#FAEEDA;color:#854F0B;}
+.ff input,.ff textarea,.ff select{padding:9px 12px;border:1.5px solid var(--bdr2);border-radius:var(--r2);font-family:var(--fb);font-size:14px;background:var(--surf);color:var(--ink);outline:none;transition:border-color .2s;width:100%;}
+.ff input:focus,.ff textarea:focus,.ff select:focus{border-color:var(--warm);}
+.ff textarea{resize:vertical;min-height:80px;line-height:1.5;}
+.upload-z{border:2px dashed var(--warm-mid);border-radius:var(--r);padding:2rem 1.5rem;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;transition:all .2s;text-align:center;position:relative;}
+.upload-z:hover{border-color:var(--warm);background:var(--warm-pale);}
+.upload-z input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;border:none;padding:0;}
+.upload-z i{font-size:32px;color:var(--warm2);}
+.upload-zt{font-size:14px;color:var(--ink2);font-weight:500;}
+.upload-zs{font-size:12px;color:var(--ink3);}
+.prev-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+.prev-img{width:76px;height:76px;object-fit:cover;border-radius:var(--r2);border:1px solid var(--bdr);}
+.form-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;padding-top:.75rem;flex-wrap:wrap;}
 
-.add-card {
-  background: none;
-  border: 2px dashed var(--border-mid);
-  border-radius: var(--radius);
-  aspect-ratio: 1.1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  cursor: pointer;
-  color: var(--ink-light);
-  transition: all 0.2s;
-  font-family: var(--font-body);
-}
-.add-card:hover { border-color: var(--warm); color: var(--warm); background: var(--warm-pale); }
-.add-card i { font-size: 28px; }
-.add-card span { font-size: 13px; }
+/* ─── CERTIFICATE ─── */
+.cert-wrap{max-width:680px;}
+.cert-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:var(--shL);border:1px solid var(--bdr);}
+.cert-hdr{padding:1.5rem 2rem 1.2rem;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;}
+.cert-hdr-logo{max-width:180px;height:auto;display:block;}
+.cert-hdr-tag{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);}
+.cert-title-area{padding:1.8rem 2rem 1.4rem;border-bottom:1px solid var(--bdr);}
+.cert-big{font-family:var(--fd);font-size:3rem;font-weight:600;color:var(--warm);text-transform:uppercase;letter-spacing:.02em;line-height:1;}
+.cert-big-under{display:flex;align-items:center;gap:10px;margin-top:4px;}
+.cert-big-line{flex:1;height:2px;background:var(--warm);}
+.cert-de-auth{font-family:var(--fd);font-size:1.25rem;font-weight:500;color:var(--warm);font-style:italic;}
+.cert-fields-row{display:grid;grid-template-columns:auto auto 1fr auto;gap:1.5rem;padding:1.3rem 2rem;border-bottom:1px solid var(--bdr);align-items:end;}
+.cert-f{display:flex;flex-direction:column;gap:3px;}
+.cert-fl{font-size:11px;font-weight:500;color:var(--ink2);}
+.cert-fv{font-size:14px;font-weight:500;color:var(--ink);border-bottom:1.5px solid var(--ink3);padding-bottom:2px;min-width:70px;}
+.cert-fv.wide{min-width:180px;}
+.cert-photo{width:85px;height:85px;border-radius:50%;object-fit:cover;border:2px solid var(--bdr2);}
+.cert-photo-ph{width:85px;height:85px;border-radius:50%;background:var(--warm-pale);border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;}
+.cert-photo-ph i{font-size:28px;color:var(--warm-mid);}
+.cert-details{padding:.9rem 2rem 1.2rem;border-bottom:1px solid var(--bdr);}
+.cert-det-l{font-size:11px;font-weight:500;color:var(--ink2);margin-bottom:4px;}
+.cert-det-v{font-size:13px;color:var(--ink);border-bottom:1px solid var(--bdr2);padding-bottom:4px;min-height:22px;line-height:1.5;}
+.cert-stmt{padding:1.2rem 2rem;border-bottom:1px solid var(--bdr);}
+.cert-stmt p{font-size:13.5px;font-weight:500;color:var(--ink2);margin-bottom:2px;}
+.cert-bot{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--bdr);}
+.cert-sig-area{padding:1.3rem 2rem;border-right:1px solid var(--bdr);}
+.cert-sig-img{font-family:var(--fd);font-size:1.5rem;font-style:italic;color:var(--ink);margin-bottom:6px;}
+.cert-sig-line{width:200px;height:1px;background:var(--ink3);}
+.cert-qr-area{padding:1.3rem 2rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;}
+.cert-qr-label{font-size:11px;font-weight:500;color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;}
+.cert-priv-banner{padding:.6rem 2rem;background:var(--warm-pale);display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink2);border-bottom:1px solid var(--bdr);}
+.cert-priv-banner i{color:var(--warm);font-size:14px;}
+.cert-priv-fields{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;padding:1.1rem 2rem;border-bottom:1px solid var(--bdr);}
+.cert-foot{padding:.9rem 2rem;display:flex;align-items:center;justify-content:center;}
+.cert-foot-url{font-size:13px;font-weight:500;color:var(--ink2);letter-spacing:.04em;}
 
-/* ── BUTTONS ── */
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 18px;
-  background: var(--warm);
-  color: #fff;
-  border: none;
-  border-radius: var(--radius-sm);
-  font-family: var(--font-body);
-  font-size: 13.5px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-.btn-primary:hover { background: var(--warm-light); }
-.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 18px;
-  background: none;
-  color: var(--ink-mid);
-  border: 1.5px solid var(--border-mid);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-body);
-  font-size: 13.5px;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-.btn-secondary:hover { border-color: var(--warm); color: var(--warm); }
-.btn-danger {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 18px;
-  background: none;
-  color: #c0392b;
-  border: 1.5px solid rgba(192,57,43,0.3);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-body);
-  font-size: 13.5px;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-.btn-danger:hover { background: rgba(192,57,43,0.08); }
+/* ─── DOSSIER PÚBLICO ─── */
+.dos-hero{background:var(--ink);padding:2.5rem 2.5rem 2rem;}
+.dos-logo{max-width:200px;width:100%;height:auto;display:block;margin-bottom:8px;filter:brightness(10);}
+.dos-sub{font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.1em;text-transform:uppercase;}
+.dos-count{font-size:13px;color:rgba(255,255,255,.4);margin-top:.6rem;}
+.dos-body{padding:1.5rem 2.5rem 2rem;}
+.dos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;}
+.dos-card{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden;transition:box-shadow .2s,transform .2s;}
+.dos-card:hover{box-shadow:var(--sh);transform:translateY(-2px);}
+.dos-th{aspect-ratio:4/3;background:var(--warm-pale);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.dos-th img{width:100%;height:100%;object-fit:cover;}
+.dos-th-ph{width:60px;height:60px;border-radius:50%;background:var(--warm-mid);display:flex;align-items:center;justify-content:center;}
+.dos-th-ph i{font-size:24px;color:var(--warm);}
+.dos-info{padding:12px 14px;}
+.dos-tit{font-size:13.5px;font-weight:500;color:var(--ink);margin-bottom:5px;}
+.dos-chips{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;}
+.chip{font-size:10px;background:var(--surf2);color:var(--ink2);padding:3px 8px;border-radius:10px;border:1px solid var(--bdr);}
+.dos-priv{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink3);padding:5px 9px;background:var(--warm-pale);border-radius:var(--r2);}
+.dos-priv i{font-size:12px;color:var(--warm);}
 
-/* ── FORM ── */
-.form-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 2rem;
-  margin-bottom: 1.5rem;
-}
-.form-section-title {
-  font-size: 12px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--ink-light);
-  margin-bottom: 1.25rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.form-section-title i { font-size: 14px; }
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.form-field { display: flex; flex-direction: column; gap: 5px; }
-.form-field.full { grid-column: 1 / -1; }
-.form-label {
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--ink-mid);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.badge {
-  font-size: 10px;
-  padding: 2px 7px;
-  border-radius: 10px;
-  font-weight: 500;
-}
-.badge-public { background: #EAF3DE; color: #3B6D11; }
-.badge-private { background: #FAEEDA; color: #854F0B; }
-.form-field input,
-.form-field textarea,
-.form-field select {
-  padding: 10px 13px;
-  border: 1.5px solid var(--border-mid);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-body);
-  font-size: 14px;
-  background: var(--surface);
-  color: var(--ink);
-  outline: none;
-  transition: border-color 0.2s;
-  width: 100%;
-}
-.form-field input:focus,
-.form-field textarea:focus,
-.form-field select:focus { border-color: var(--warm); }
-.form-field textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
+/* MODAL */
+.modal-ov{position:fixed;inset:0;background:rgba(28,18,8,.6);z-index:200;display:none;align-items:center;justify-content:center;padding:1rem;}
+.modal-ov.open{display:flex;}
+.modal{background:var(--surf);border-radius:16px;width:100%;max-width:420px;padding:1.8rem;box-shadow:var(--shL);}
+.modal-tit{font-family:var(--fd);font-size:1.4rem;font-weight:500;margin-bottom:.4rem;}
+.modal-sub{font-size:13px;color:var(--ink3);margin-bottom:1.3rem;line-height:1.5;}
+.modal-acts{display:flex;gap:8px;justify-content:flex-end;}
 
-.upload-zone {
-  border: 2px dashed var(--warm-mid);
-  border-radius: var(--radius);
-  padding: 2.5rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  transition: all 0.2s;
-  text-align: center;
-  position: relative;
-}
-.upload-zone:hover { border-color: var(--warm); background: var(--warm-pale); }
-.upload-zone input[type="file"] {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  cursor: pointer;
-  border: none;
-  padding: 0;
-}
-.upload-zone i { font-size: 36px; color: var(--warm-light); }
-.upload-zone-text { font-size: 14px; color: var(--ink-mid); font-weight: 500; }
-.upload-zone-sub { font-size: 12px; color: var(--ink-light); }
-.preview-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 12px;
-}
-.preview-img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border);
-}
-.form-actions {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 10px;
-  padding-top: 1rem;
+/* TOAST */
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--ink);color:#fff;padding:11px 18px;border-radius:var(--r2);font-size:14px;z-index:999;display:none;align-items:center;gap:10px;box-shadow:var(--shL);max-width:calc(100vw - 3rem);}
+.toast.show{display:flex;}
+.toast i{color:#7FC47F;font-size:16px;flex-shrink:0;}
+
+/* EMPTY */
+.empty{text-align:center;padding:3rem 1rem;color:var(--ink3);grid-column:1/-1;}
+.empty i{font-size:44px;margin-bottom:1rem;display:block;color:var(--warm-mid);}
+.empty h3{font-family:var(--fd);font-size:1.3rem;color:var(--ink2);margin-bottom:8px;}
+.empty p{font-size:13px;max-width:280px;margin:0 auto 1.2rem;}
+
+/* PRINT */
+@media print{
+  .sidebar,.pg-hdr .btn-p,.pg-hdr .btn-s,.pg-hdr .btn-d{display:none!important;}
+  .main{margin-left:0!important;width:100%!important;}
+  .cert-card{box-shadow:none!important;}
 }
 
-/* ── CERTIFICATE VIEW ── */
-.cert-container {
-  max-width: 720px;
-}
-.cert-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: var(--shadow);
-}
-.cert-header {
-  background: var(--warm);
-  padding: 2rem 2.5rem;
-  position: relative;
-  overflow: hidden;
-}
-.cert-header::before {
-  content: '';
-  position: absolute;
-  right: -40px;
-  top: -40px;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.06);
-}
-.cert-header::after {
-  content: '';
-  position: absolute;
-  right: 30px;
-  bottom: -60px;
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.04);
-}
-.cert-brand-tag {
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.6);
-  margin-bottom: 8px;
-}
-.cert-obra-title {
-  font-family: var(--font-display);
-  font-size: 2.2rem;
-  font-weight: 500;
-  color: #fff;
-  line-height: 1.1;
-  margin-bottom: 6px;
-}
-.cert-obra-id {
-  font-size: 13px;
-  color: rgba(255,255,255,0.65);
-}
-.cert-body {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-.cert-section {
-  padding: 2rem 2.5rem;
-}
-.cert-section:first-child {
-  border-right: 1px solid var(--border);
-}
-.cert-section-label {
-  font-size: 10px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--ink-light);
-  margin-bottom: 1.25rem;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.cert-field { margin-bottom: 14px; }
-.cert-field-label { font-size: 11px; color: var(--ink-light); margin-bottom: 2px; }
-.cert-field-value { font-size: 14px; color: var(--ink); font-weight: 500; }
-.cert-field-value.desc { font-weight: 400; font-size: 13px; color: var(--ink-mid); line-height: 1.6; }
-.cert-lock-notice {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  background: var(--warm-pale);
-  border-radius: var(--radius-sm);
-  font-size: 12px;
-  color: var(--ink-mid);
-  margin-top: 1rem;
-}
-.cert-lock-notice i { color: var(--warm); font-size: 15px; flex-shrink: 0; }
-.cert-footer {
-  border-top: 1px solid var(--border);
-  padding: 1.5rem 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-.cert-signature {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-style: italic;
-  color: var(--warm);
-}
-.cert-signature-label { font-size: 11px; color: var(--ink-light); margin-top: 2px; }
-.qr-section { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-#qr-canvas { border-radius: var(--radius-sm); border: 1px solid var(--border); }
-.qr-caption { font-size: 11px; color: var(--ink-light); text-align: center; }
-
-/* ── PUBLIC DOSSIER ── */
-.dossier-hero {
-  background: var(--ink);
-  padding: 3rem 2.5rem 2rem;
-  margin: -2rem -2.5rem 2rem;
-}
-.dossier-hero-brand {
-  font-family: var(--font-display);
-  font-size: 2.5rem;
-  font-weight: 500;
-  color: #fff;
-  letter-spacing: 0.03em;
-  margin-bottom: 4px;
-}
-.dossier-hero-sub {
-  font-size: 13px;
-  color: rgba(255,255,255,0.5);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.dossier-hero-count {
-  font-size: 13px;
-  color: rgba(255,255,255,0.5);
-  margin-top: 1rem;
-}
-.dossier-filters {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 1.5rem;
-  align-items: center;
-}
-.dossier-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
-}
-.dossier-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  transition: box-shadow 0.2s, transform 0.2s;
-}
-.dossier-card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
-.dossier-thumb {
-  aspect-ratio: 4/3;
-  background: var(--warm-pale);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-.dossier-thumb img { width: 100%; height: 100%; object-fit: cover; }
-.dossier-thumb-ph {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  background: var(--warm-mid);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.dossier-thumb-ph i { font-size: 28px; color: var(--warm); }
-.dossier-info { padding: 14px 16px; }
-.dossier-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
-.dossier-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
-.chip {
-  font-size: 10px;
-  background: var(--surface2);
-  color: var(--ink-mid);
-  padding: 3px 8px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-}
-.dossier-private-note {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  color: var(--ink-light);
-  padding: 6px 10px;
-  background: var(--warm-pale);
-  border-radius: var(--radius-sm);
-}
-.dossier-private-note i { font-size: 12px; color: var(--warm); }
-
-/* ── MODAL ── */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(28,20,16,0.6);
-  z-index: 200;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-}
-.modal-overlay.open { display: flex; }
-.modal {
-  background: var(--surface);
-  border-radius: 16px;
-  width: 100%;
-  max-width: 460px;
-  padding: 2rem;
-  box-shadow: var(--shadow-lg);
-  max-height: 90vh;
-  overflow-y: auto;
-}
-.modal-title {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-}
-.modal-sub { font-size: 13px; color: var(--ink-light); margin-bottom: 1.5rem; }
-.modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 1.5rem; }
-
-/* ── EMPTY STATE ── */
-.empty-state {
-  text-align: center;
-  padding: 4rem 2rem;
-  color: var(--ink-light);
-}
-.empty-state i { font-size: 48px; margin-bottom: 1rem; display: block; color: var(--warm-mid); }
-.empty-state h3 { font-family: var(--font-display); font-size: 1.4rem; color: var(--ink-mid); margin-bottom: 8px; }
-.empty-state p { font-size: 14px; max-width: 320px; margin: 0 auto 1.5rem; }
-
-/* ── TOAST ── */
-.toast {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  background: var(--ink);
-  color: #fff;
-  padding: 12px 20px;
-  border-radius: var(--radius-sm);
-  font-size: 14px;
-  z-index: 999;
-  display: none;
-  align-items: center;
-  gap: 10px;
-  box-shadow: var(--shadow-lg);
-}
-.toast.show { display: flex; }
-.toast i { color: #7FC47F; font-size: 17px; }
-
-/* ── RESPONSIVE ── */
-@media (max-width: 768px) {
-  .sidebar { width: 100%; height: auto; position: relative; flex-direction: row; align-items: center; }
-  .main { margin-left: 0; }
-  .sidebar-nav { display: flex; flex-direction: row; padding: 0; overflow-x: auto; }
-  .nav-item { flex-direction: column; gap: 3px; padding: 10px 14px; font-size: 10px; border-left: none; border-bottom: 3px solid transparent; white-space: nowrap; }
-  .nav-item.active { border-left-color: transparent; border-bottom-color: var(--warm-light); }
-  .sidebar-brand, .sidebar-bottom { display: none; }
-  .page-header { padding: 1.25rem 1rem 1rem; }
-  .page-title { font-size: 1.5rem; }
-  .page-content { padding: 1.25rem 1rem; }
-  .cert-body { grid-template-columns: 1fr; }
-  .cert-section:first-child { border-right: none; border-bottom: 1px solid var(--border); }
-  .form-grid { grid-template-columns: 1fr; }
-  .form-field.full { grid-column: 1; }
-  .dossier-hero { margin: -1.25rem -1rem 1.5rem; padding: 2rem 1rem 1.5rem; }
+/* ─── MOBILE ─── */
+@media(max-width:768px){
+  :root{--sb:0px;}
+  .sidebar{
+    width:100%;height:auto;position:sticky;top:0;
+    flex-direction:row;align-items:center;
+    bottom:auto;
+  }
+  .sb-brand{padding:.75rem 1rem;flex-shrink:0;}
+  .sb-logo{max-width:110px;}
+  .sb-sub{display:none;}
+  .sb-nav{
+    display:flex;flex-direction:row;padding:0;
+    overflow-x:auto;flex:1;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .sb-nav::-webkit-scrollbar{display:none;}
+  .nav-it{
+    flex-direction:column;gap:2px;
+    padding:8px 12px;font-size:10px;
+    border-left:none;border-bottom:3px solid transparent;
+    white-space:nowrap;flex-shrink:0;
+  }
+  .nav-it i{font-size:18px;}
+  .nav-it.active{border-left-color:transparent;border-bottom-color:var(--warm2);}
+  .sb-bot{display:none;}
+  .main{margin-left:0;width:100%;}
+  .pg-hdr{padding:1rem;gap:.75rem;}
+  .pg-title{font-size:1.5rem;}
+  .pg-body{padding:1rem;}
+  .form-grid{grid-template-columns:1fr;}
+  .ff.full{grid-column:1;}
+  .obras-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;}
+  .cert-wrap{max-width:100%;}
+  .cert-fields-row{grid-template-columns:1fr 1fr;gap:1rem;}
+  .cert-photo-ph,.cert-photo{display:none;}
+  .cert-bot{grid-template-columns:1fr;}
+  .cert-sig-area{border-right:none;border-bottom:1px solid var(--bdr);}
+  .cert-priv-fields{grid-template-columns:1fr 1fr;}
+  .cert-big{font-size:2.2rem;}
+  .cert-hdr,.cert-title-area,.cert-fields-row,.cert-details,.cert-stmt,.cert-sig-area,.cert-qr-area,.cert-priv-banner,.cert-priv-fields,.cert-foot{padding-left:1rem;padding-right:1rem;}
+  .dos-hero{padding:1.5rem 1rem 1.2rem;}
+  .dos-body{padding:1rem;}
+  .dos-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .form-actions{justify-content:stretch;}
+  .form-actions .btn-s,.form-actions .btn-p,.form-actions .btn-d{flex:1;justify-content:center;}
+  .pg-actions{width:100%;}
+  .pg-actions .btn-s,.pg-actions .btn-p{flex:1;justify-content:center;}
 }
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
+<!-- LOGIN (solo panel admin) -->
 <div id="login-screen">
   <div class="login-card">
-    <div class="login-logo">Wooddany</div>
-    <div class="login-sub">Catálogo de obra · Acceso privado</div>
-    <input type="password" id="pwd-input" placeholder="Contraseña" onkeydown="if(event.key==='Enter')tryLogin()">
-    <button class="login-btn" onclick="tryLogin()">Entrar</button>
-    <div class="login-error" id="login-error">Contraseña incorrecta</div>
+    <img src="data:image/jpeg;base64,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" class="login-logo" alt="woodDany Pujol art studio">
+    <div class="login-sub">Área privada · Gestión de obras</div>
+    <input type="password" id="pwd" placeholder="Contraseña" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="login-btn" onclick="doLogin()">Entrar</button>
+    <div class="login-err" id="login-err">Contraseña incorrecta</div>
   </div>
 </div>
 
-<!-- APP -->
+<!-- APP PANEL (con sidebar) -->
 <div id="app">
   <aside class="sidebar">
-    <div class="sidebar-brand">
-      <div class="sidebar-brand-name">Wooddany</div>
-      <div class="sidebar-brand-sub">Catálogo de obra</div>
+    <div class="sb-brand">
+      <img src="data:image/jpeg;base64,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" class="sb-logo" alt="woodDany Pujol">
     </div>
-    <nav class="sidebar-nav">
-      <div class="nav-item active" onclick="showView('panel')" id="nav-panel">
-        <i class="ti ti-layout-dashboard"></i> Panel
-      </div>
-      <div class="nav-item" onclick="showView('nueva')" id="nav-nueva">
-        <i class="ti ti-plus"></i> Nueva obra
-      </div>
-      <div class="nav-item" onclick="showView('dossier')" id="nav-dossier">
-        <i class="ti ti-photo"></i> Dossier público
-      </div>
+    <nav class="sb-nav">
+      <div class="nav-it active" onclick="showV('panel')" id="nav-panel"><i class="ti ti-layout-dashboard"></i> Panel</div>
+      <div class="nav-it" onclick="showV('nueva')" id="nav-nueva"><i class="ti ti-plus"></i> Nueva obra</div>
+      <div class="nav-it" onclick="showV('dossier')" id="nav-dossier"><i class="ti ti-photo"></i> Dossier</div>
     </nav>
-    <div class="sidebar-bottom">
-      <button class="logout-btn" onclick="logout()">
-        <i class="ti ti-logout" style="font-size:15px;"></i> Cerrar sesión
-      </button>
+    <div class="sb-bot">
+      <button class="logout-btn" onclick="doLogout()"><i class="ti ti-logout" style="font-size:15px;"></i> Salir</button>
     </div>
   </aside>
-
   <main class="main">
+
     <!-- PANEL -->
     <div class="view active" id="view-panel">
-      <div class="page-header">
-        <div>
-          <div class="page-title">Mis obras</div>
-          <div class="page-sub">Registro completo de tu catálogo</div>
-        </div>
-        <button class="btn-primary" onclick="showView('nueva')">
-          <i class="ti ti-plus"></i> Nueva obra
-        </button>
+      <div class="pg-hdr">
+        <div><div class="pg-title">Mis obras</div><div class="pg-sub">Registro completo del catálogo</div></div>
+        <div class="pg-actions"><button class="btn-p" onclick="showV('nueva')"><i class="ti ti-plus"></i> Nueva obra</button></div>
       </div>
-      <div class="page-content">
+      <div class="pg-body">
         <div class="stats-grid" id="stats-grid"></div>
-        <div class="year-tabs" id="year-tabs"></div>
+        <div class="yr-tabs" id="yr-tabs"></div>
         <div class="obras-grid" id="obras-grid"></div>
       </div>
     </div>
 
-    <!-- NUEVA OBRA -->
+    <!-- NUEVA / EDITAR -->
     <div class="view" id="view-nueva">
-      <div class="page-header">
-        <div>
-          <div class="page-title" id="form-page-title">Nueva obra</div>
-          <div class="page-sub">Rellena lo que tengas — puedes dejar campos vacíos para obras antiguas</div>
-        </div>
+      <div class="pg-hdr">
+        <div><div class="pg-title" id="form-title">Nueva obra</div><div class="pg-sub">Todos los campos son opcionales — ideal para obras antiguas</div></div>
       </div>
-      <div class="page-content">
+      <div class="pg-body">
         <div class="form-card">
-          <div class="form-section-title"><i class="ti ti-photo"></i> Fotografías de la obra</div>
-          <div class="upload-zone" id="upload-zone">
-            <input type="file" accept="image/*" multiple onchange="handleImages(event)">
+          <div class="form-sec-t"><i class="ti ti-photo"></i> Fotografías</div>
+          <div class="upload-z">
+            <input type="file" accept="image/*" multiple onchange="handleImgs(event)">
             <i class="ti ti-cloud-upload"></i>
-            <div class="upload-zone-text">Sube una o varias fotos</div>
-            <div class="upload-zone-sub">JPG, PNG, WEBP · Desde el carrete del móvil</div>
+            <div class="upload-zt">Sube fotos de la obra</div>
+            <div class="upload-zs">JPG, PNG · Desde el carrete del móvil o PC</div>
           </div>
-          <div class="preview-grid" id="preview-grid"></div>
+          <div class="prev-grid" id="prev-grid"></div>
         </div>
-
         <div class="form-card">
-          <div class="form-section-title"><i class="ti ti-world"></i> Datos públicos <span class="badge badge-public" style="font-size:10px;">visibles en el dossier</span></div>
+          <div class="form-sec-t"><i class="ti ti-world"></i> Datos públicos <span class="badge bp">visibles en el dossier</span></div>
           <div class="form-grid">
-            <div class="form-field">
-              <label class="form-label">Número de obra <span class="badge badge-public">público</span></label>
-              <input type="text" id="f-num" placeholder="ej. WD-2024-001">
-            </div>
-            <div class="form-field">
-              <label class="form-label">Año <span class="badge badge-public">público</span></label>
-              <select id="f-year"></select>
-            </div>
-            <div class="form-field">
-              <label class="form-label">Tamaño <span class="badge badge-public">público</span></label>
-              <input type="text" id="f-size" placeholder="ej. 30×40 cm">
-            </div>
-            <div class="form-field">
-              <label class="form-label">Materiales <span class="badge badge-public">público</span></label>
-              <input type="text" id="f-materials" placeholder="ej. Acrílico sobre madera">
-            </div>
-            <div class="form-field full">
-              <label class="form-label">Título / descripción pública</label>
-              <input type="text" id="f-title" placeholder="ej. Familia García · Retrato en rodaja de cerezo">
-            </div>
+            <div class="ff"><label class="flabel">Serie / Número <span class="badge bp">público</span></label><input type="text" id="f-num" placeholder="ej. WD-2024-001"></div>
+            <div class="ff"><label class="flabel">Año <span class="badge bp">público</span></label><select id="f-year"></select></div>
+            <div class="ff"><label class="flabel">Dimensiones <span class="badge bp">público</span></label><input type="text" id="f-size" placeholder="ej. 30×40 cm"></div>
+            <div class="ff"><label class="flabel">Materiales <span class="badge bp">público</span></label><input type="text" id="f-mat" placeholder="ej. Acrílico sobre madera"></div>
+            <div class="ff full"><label class="flabel">Título / nombre de la obra</label><input type="text" id="f-title" placeholder="ej. Familia García · Rodaja de cerezo"></div>
           </div>
         </div>
-
         <div class="form-card">
-          <div class="form-section-title"><i class="ti ti-lock"></i> Datos privados <span class="badge badge-private" style="font-size:10px;">solo accesibles con QR</span></div>
+          <div class="form-sec-t"><i class="ti ti-lock"></i> Datos privados <span class="badge bpr">solo con QR del cliente</span></div>
           <div class="form-grid">
-            <div class="form-field">
-              <label class="form-label">Nombre del cliente <span class="badge badge-private">privado</span></label>
-              <input type="text" id="f-client" placeholder="ej. Laura Sánchez">
-            </div>
-            <div class="form-field">
-              <label class="form-label">Fecha de entrega <span class="badge badge-private">privado</span></label>
-              <input type="date" id="f-date">
-            </div>
-            <div class="form-field">
-              <label class="form-label">Precio <span class="badge badge-private">privado</span></label>
-              <input type="text" id="f-price" placeholder="ej. 180 €">
-            </div>
-            <div class="form-field"></div>
-            <div class="form-field full">
-              <label class="form-label">Descripción personalizada <span class="badge badge-private">privado</span></label>
-              <textarea id="f-desc" placeholder="Historia detrás de la obra, personas retratadas, momentos especiales, dedicatoria..."></textarea>
-            </div>
+            <div class="ff"><label class="flabel">Cliente <span class="badge bpr">privado</span></label><input type="text" id="f-client" placeholder="ej. Laura Sánchez"></div>
+            <div class="ff"><label class="flabel">Fecha de entrega <span class="badge bpr">privado</span></label><input type="date" id="f-date"></div>
+            <div class="ff"><label class="flabel">Precio <span class="badge bpr">privado</span></label><input type="text" id="f-price" placeholder="ej. 180 €"></div>
+            <div class="ff"></div>
+            <div class="ff full"><label class="flabel">Detalles / dedicatoria <span class="badge bpr">privado</span></label><textarea id="f-desc" placeholder="Historia, personas retratadas, dedicatoria..."></textarea></div>
           </div>
         </div>
-
         <div class="form-actions">
-          <button class="btn-secondary" onclick="cancelForm()">Cancelar</button>
-          <button class="btn-danger" id="btn-delete" onclick="deleteObra()" style="display:none;">
-            <i class="ti ti-trash"></i> Eliminar obra
-          </button>
-          <button class="btn-primary" onclick="saveObra()">
-            <i class="ti ti-device-floppy"></i> Guardar y generar certificado
-          </button>
+          <button class="btn-s" onclick="cancelForm()">Cancelar</button>
+          <button class="btn-d" id="btn-del" onclick="askDel()" style="display:none;"><i class="ti ti-trash"></i> Eliminar</button>
+          <button class="btn-p" onclick="saveObra()"><i class="ti ti-device-floppy"></i> Guardar</button>
         </div>
       </div>
     </div>
 
     <!-- CERTIFICADO -->
     <div class="view" id="view-cert">
-      <div class="page-header">
+      <div class="pg-hdr">
         <div>
-          <div class="page-title">Certificado de autenticidad</div>
-          <div class="page-sub" id="cert-breadcrumb"></div>
+          <button class="btn-s" style="margin-bottom:.5rem;font-size:12px;" onclick="showV('panel')"><i class="ti ti-arrow-left"></i> Volver</button>
+          <div class="pg-title">Certificado</div>
+          <div class="pg-sub" id="cert-bread"></div>
         </div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;">
-          <button class="btn-secondary" onclick="editObra()">
-            <i class="ti ti-edit"></i> Editar
-          </button>
-          <button class="btn-secondary" onclick="downloadQR()">
-            <i class="ti ti-download"></i> Descargar QR
-          </button>
-          <button class="btn-primary" onclick="window.print()">
-            <i class="ti ti-printer"></i> Imprimir
-          </button>
+        <div class="pg-actions">
+          <button class="btn-s" onclick="editCur()"><i class="ti ti-edit"></i> Editar</button>
+          <button class="btn-s" onclick="dlQR()"><i class="ti ti-download"></i> QR</button>
+          <button class="btn-p" onclick="window.print()"><i class="ti ti-printer"></i> Imprimir</button>
         </div>
       </div>
-      <div class="page-content">
-        <div class="cert-container">
+      <div class="pg-body">
+        <div class="cert-wrap">
           <div class="cert-card">
-            <div class="cert-header">
-              <div class="cert-brand-tag">Wooddany Retratos · Certificado de autenticidad</div>
-              <div class="cert-obra-title" id="cert-title">—</div>
-              <div class="cert-obra-id" id="cert-id">—</div>
+            <div class="cert-hdr">
+              <img src="data:image/jpeg;base64,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" class="cert-hdr-logo" alt="woodDany Pujol">
+              <div class="cert-hdr-tag">art studio</div>
             </div>
-            <div class="cert-body">
-              <div class="cert-section">
-                <div class="cert-section-label">
-                  <i class="ti ti-world" style="font-size:12px;"></i>
-                  Información pública
-                </div>
-                <div class="cert-field">
-                  <div class="cert-field-label">Número de obra</div>
-                  <div class="cert-field-value" id="cert-num">—</div>
-                </div>
-                <div class="cert-field">
-                  <div class="cert-field-label">Año</div>
-                  <div class="cert-field-value" id="cert-year">—</div>
-                </div>
-                <div class="cert-field">
-                  <div class="cert-field-label">Tamaño</div>
-                  <div class="cert-field-value" id="cert-size">—</div>
-                </div>
-                <div class="cert-field">
-                  <div class="cert-field-label">Materiales</div>
-                  <div class="cert-field-value" id="cert-materials">—</div>
-                </div>
-                <div class="cert-field">
-                  <div class="cert-field-label">Artista</div>
-                  <div class="cert-field-value">Daniela · @wooddany_retratos</div>
-                </div>
-              </div>
-              <div class="cert-section">
-                <div class="cert-section-label">
-                  <i class="ti ti-lock" style="font-size:12px;"></i>
-                  Información privada del cliente
-                </div>
-                <div class="cert-field">
-                  <div class="cert-field-label">Cliente</div>
-                  <div class="cert-field-value" id="cert-client">—</div>
-                </div>
-                <div class="cert-field">
-                  <div class="cert-field-label">Fecha de entrega</div>
-                  <div class="cert-field-value" id="cert-date">—</div>
-                </div>
-                <div class="cert-field">
-                  <div class="cert-field-label">Precio</div>
-                  <div class="cert-field-value" id="cert-price">—</div>
-                </div>
-                <div class="cert-field">
-                  <div class="cert-field-label">Descripción</div>
-                  <div class="cert-field-value desc" id="cert-desc">—</div>
-                </div>
-                <div class="cert-lock-notice">
-                  <i class="ti ti-lock"></i>
-                  Esta sección es visible solo para el cliente mediante el QR personalizado del pedido.
-                </div>
+            <div class="cert-title-area">
+              <div class="cert-big">CERTIFICADO</div>
+              <div class="cert-big-under">
+                <div class="cert-de-auth">de Autenticidad</div>
+                <div class="cert-big-line"></div>
               </div>
             </div>
-            <div class="cert-footer">
-              <div>
-                <div class="cert-signature">Daniela</div>
-                <div class="cert-signature-label">Wooddany Retratos · Obra original a mano</div>
+            <div class="cert-fields-row">
+              <div class="cert-f"><div class="cert-fl">Año:</div><div class="cert-fv" id="c-year">—</div></div>
+              <div class="cert-f"><div class="cert-fl">Serie:</div><div class="cert-fv" id="c-num">—</div></div>
+              <div class="cert-f"><div class="cert-fl">Dimensiones:</div><div class="cert-fv wide" id="c-size">—</div></div>
+              <div class="cert-f" id="cert-photo-wrap"><div class="cert-photo-ph"><i class="ti ti-tree"></i></div></div>
+            </div>
+            <div class="cert-details">
+              <div class="cert-det-l">Detalles de la obra:</div>
+              <div class="cert-det-v" id="c-desc">—</div>
+            </div>
+            <div class="cert-stmt">
+              <p>Esta obra de arte ha sido pintada a mano</p>
+              <p>Es una pieza original y única, realizada por la artista:</p>
+            </div>
+            <div class="cert-bot">
+              <div class="cert-sig-area">
+                <div class="cert-sig-img">Daniela Pujol Martín</div>
+                <div class="cert-sig-line"></div>
               </div>
-              <div class="qr-section">
-                <canvas id="qr-canvas" width="90" height="90"></canvas>
-                <div class="qr-caption">Escanear para acceso del cliente</div>
+              <div class="cert-qr-area">
+                <div class="cert-qr-label">Escanéame</div>
+                <canvas id="cert-qr-canvas" width="100" height="100"></canvas>
               </div>
             </div>
+            <div class="cert-priv-banner"><i class="ti ti-lock"></i> Información privada del cliente — visible solo escaneando este QR</div>
+            <div class="cert-priv-fields">
+              <div class="cert-f"><div class="cert-fl">Cliente:</div><div class="cert-fv" id="c-client">—</div></div>
+              <div class="cert-f"><div class="cert-fl">Fecha de entrega:</div><div class="cert-fv" id="c-date">—</div></div>
+              <div class="cert-f"><div class="cert-fl">Precio:</div><div class="cert-fv" id="c-price">—</div></div>
+            </div>
+            <div class="cert-foot"><div class="cert-foot-url">www.wooddany.com</div></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- DOSSIER PÚBLICO -->
+    <!-- DOSSIER (dentro del panel admin también) -->
     <div class="view" id="view-dossier">
-      <div class="dossier-hero" id="dossier-hero">
-        <div class="dossier-hero-brand">Wooddany Retratos</div>
-        <div class="dossier-hero-sub">Catálogo de obra · Retratos sobre madera</div>
-        <div class="dossier-hero-count" id="dossier-count"></div>
+      <div class="dos-hero">
+        <img src="data:image/jpeg;base64,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" class="dos-logo" alt="woodDany Pujol">
+        <div class="dos-sub">Catálogo de obra · Retratos sobre madera</div>
+        <div class="dos-count" id="dos-count-admin"></div>
       </div>
-      <div style="padding: 0 2.5rem 2rem;">
-        <div class="dossier-filters">
-          <span style="font-size:12px;color:var(--ink-light);text-transform:uppercase;letter-spacing:.08em;">Filtrar por año:</span>
-          <div id="dossier-year-tabs"></div>
-        </div>
-        <div class="dossier-grid" id="dossier-grid"></div>
+      <div class="dos-body">
+        <div class="yr-tabs" id="dos-tabs-admin"></div>
+        <div class="dos-grid" id="dos-grid-admin"></div>
       </div>
     </div>
 
   </main>
 </div>
 
-<!-- MODAL confirmación borrar -->
-<div class="modal-overlay" id="modal-delete">
+<!-- DOSSIER PÚBLICO (sin login, acceso directo) -->
+<div id="public-dossier" style="display:none;">
+  <div class="dos-hero">
+    <img src="data:image/jpeg;base64,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" class="dos-logo" alt="woodDany Pujol">
+    <div class="dos-sub">Catálogo de obra · Retratos sobre madera</div>
+    <div class="dos-count" id="dos-count-pub"></div>
+  </div>
+  <div class="dos-body">
+    <div class="yr-tabs" id="dos-tabs-pub"></div>
+    <div class="dos-grid" id="dos-grid-pub"></div>
+  </div>
+</div>
+
+<!-- Modal borrar -->
+<div class="modal-ov" id="modal-del">
   <div class="modal">
-    <div class="modal-title">Eliminar obra</div>
-    <div class="modal-sub">Esta acción no se puede deshacer. La obra se eliminará permanentemente del catálogo.</div>
-    <div class="modal-actions">
-      <button class="btn-secondary" onclick="closeModal('modal-delete')">Cancelar</button>
-      <button class="btn-danger" onclick="confirmDelete()"><i class="ti ti-trash"></i> Eliminar</button>
+    <div class="modal-tit">Eliminar obra</div>
+    <div class="modal-sub">Esta acción no se puede deshacer. La obra desaparecerá del catálogo permanentemente.</div>
+    <div class="modal-acts">
+      <button class="btn-s" onclick="closeMdl()">Cancelar</button>
+      <button class="btn-d" onclick="confirmDel()"><i class="ti ti-trash"></i> Eliminar</button>
     </div>
   </div>
 </div>
 
-<!-- TOAST -->
-<div class="toast" id="toast">
-  <i class="ti ti-check"></i>
-  <span id="toast-msg">Obra guardada correctamente</span>
-</div>
+<div class="toast" id="toast"><i class="ti ti-check"></i><span id="toast-msg"></span></div>
 
 <script>
-const PASSWORD = 'wooddany2024';
-const STORAGE_KEY = 'wooddany_obras_v2';
-const YEARS = [];
-const currentYear = new Date().getFullYear();
-for (let y = currentYear; y >= 2018; y--) YEARS.push(y);
+const PWD='wooddany2024', SK='wdy_v4', CY=new Date().getFullYear();
+let obras=[], curF='Todas', dosF='Todas', dosFpub='Todas', editId=null, curId=null, pendImgs=[];
 
-let obras = [];
-let currentYear_filter = String(currentYear);
-let editingId = null;
-let currentObraId = null;
-let pendingImages = [];
+function genYears(){const y=[];for(let i=CY;i>=2015;i--)y.push(String(i));return y;}
 
-function loadData() {
-  try { obras = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
-  catch(e) { obras = []; }
-  if (!obras.length) seedSampleData();
+function loadData(){
+  try{obras=JSON.parse(localStorage.getItem(SK))||[];}catch(e){obras=[];}
+  if(!obras.length)seed();
 }
 
-function saveData() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(obras));
-}
+function save(){localStorage.setItem(SK,JSON.stringify(obras));}
 
-function seedSampleData() {
-  obras = [
-    {
-      id: 'wd-001',
-      num: 'WD-2024-001',
-      year: '2024',
-      title: 'Familia García',
-      size: '30×40 cm',
-      materials: 'Pintura acrílica sobre rodaja de madera natural',
-      client: 'María García Ruiz',
-      date: '2024-03-12',
-      price: '220 €',
-      desc: 'Retrato familiar que une a la abuela fallecida con sus nietos. Pintado para el aniversario de boda de los padres. Una de las obras más emocionantes que he creado.',
-      images: []
-    },
-    {
-      id: 'wd-002',
-      num: 'WD-2024-002',
-      year: '2024',
-      title: 'Abuela Concha',
-      size: '25×35 cm',
-      materials: 'Acrílico sobre rodaja de olivo',
-      client: 'Juan Herrera López',
-      date: '2024-06-20',
-      price: '190 €',
-      desc: 'Retrato íntimo de la abuela Concha junto a su nieta recién nacida. Un regalo de bautizo muy especial.',
-      images: []
-    },
-    {
-      id: 'wd-003',
-      num: 'WD-2023-001',
-      year: '2023',
-      title: 'Boda Martínez',
-      size: '20×30 cm',
-      materials: 'Acrílico sobre madera de pino',
-      client: 'Carmen Martínez',
-      date: '2023-09-15',
-      price: '160 €',
-      desc: 'Retrato de los novios para el día de su boda.',
-      images: []
-    }
+function seed(){
+  obras=[
+    {id:'s1',num:'WD-2024-001',year:'2024',title:'Familia García',size:'30×40 cm',materials:'Acrílico sobre rodaja de madera',client:'María García',date:'2024-03-12',price:'220 €',desc:'Retrato familiar que une a la abuela con sus nietos.',images:[]},
+    {id:'s2',num:'WD-2023-001',year:'2023',title:'Abuela Concha',size:'25×35 cm',materials:'Acrílico sobre olivo',client:'Juan Herrera',date:'2023-06-20',price:'190 €',desc:'Retrato íntimo de la abuela junto a su nieta recién nacida.',images:[]}
   ];
-  saveData();
+  save();
 }
 
-function tryLogin() {
-  const val = document.getElementById('pwd-input').value;
-  if (val === PASSWORD) {
-    document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('app').style.display = 'flex';
+/* ─ ROUTING ─ */
+function init(){
+  const p=new URLSearchParams(window.location.search);
+  if(p.get('dossier')==='1'){
+    // URL pública sin login
     loadData();
-    buildYearSelect();
-    renderPanel();
+    document.getElementById('public-dossier').style.display='block';
+    renderDosPublic();
   } else {
-    document.getElementById('login-error').style.display = 'block';
-    document.getElementById('pwd-input').value = '';
-    document.getElementById('pwd-input').focus();
+    // login normal
+    document.getElementById('login-screen').style.display='flex';
   }
 }
 
-function logout() {
-  document.getElementById('login-screen').style.display = 'flex';
-  document.getElementById('app').style.display = 'none';
-  document.getElementById('pwd-input').value = '';
+function doLogin(){
+  if(document.getElementById('pwd').value===PWD){
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('app').style.display='block';
+    loadData(); buildYearSel(); renderPanel();
+  } else {
+    document.getElementById('login-err').style.display='block';
+    document.getElementById('pwd').value='';
+  }
 }
 
-function buildYearSelect() {
-  const sel = document.getElementById('f-year');
-  sel.innerHTML = YEARS.map(y => `<option value="${y}">${y}</option>`).join('');
+function doLogout(){
+  document.getElementById('login-screen').style.display='flex';
+  document.getElementById('app').style.display='none';
+  document.getElementById('pwd').value='';
 }
 
-function showView(id) {
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('view-' + id).classList.add('active');
-  const navId = 'nav-' + (id === 'cert' ? 'panel' : id === 'nueva' ? 'nueva' : id);
-  const navEl = document.getElementById(navId);
-  if (navEl) navEl.classList.add('active');
-
-  if (id === 'panel') renderPanel();
-  if (id === 'dossier') renderDossier();
+function buildYearSel(){
+  const s=document.getElementById('f-year');
+  s.innerHTML=genYears().map(y=>`<option value="${y}">${y}</option>`).join('');
 }
 
-function renderPanel() {
-  const byYear = {};
-  obras.forEach(o => {
-    byYear[o.year] = (byYear[o.year] || 0) + 1;
-  });
-  const statsEl = document.getElementById('stats-grid');
-  statsEl.innerHTML = `
-    <div class="stat-card">
-      <div class="stat-num">${obras.length}</div>
-      <div class="stat-label">Obras registradas</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">${obras.length}</div>
-      <div class="stat-label">Certificados activos</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">${Object.keys(byYear).length}</div>
-      <div class="stat-label">Años registrados</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">${currentYear}</div>
-      <div class="stat-label">Año en curso</div>
-    </div>
-  `;
-
-  const allYears = [...new Set(obras.map(o => o.year))].sort((a,b) => b - a);
-  const tabYears = ['Todas', ...YEARS.map(String).filter(y => allYears.includes(y) || y === String(currentYear))];
-  const uniqueTabYears = [...new Set(tabYears)];
-
-  const tabsEl = document.getElementById('year-tabs');
-  tabsEl.innerHTML = uniqueTabYears.map(y => `
-    <button class="year-tab ${currentYear_filter === y ? 'active' : ''}" onclick="filterYear('${y}')">${y}</button>
-  `).join('');
-
-  renderObrasGrid();
+function showV(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.nav-it').forEach(n=>n.classList.remove('active'));
+  document.getElementById('view-'+id).classList.add('active');
+  const nid=id==='cert'?'nav-panel':id==='nueva'?'nav-nueva':'nav-'+id;
+  const el=document.getElementById(nid);
+  if(el)el.classList.add('active');
+  if(id==='panel')renderPanel();
+  if(id==='dossier')renderDosAdmin();
 }
 
-function filterYear(y) {
-  currentYear_filter = y;
-  renderPanel();
+/* ─ PANEL ─ */
+function renderPanel(){
+  const yrs=[...new Set(obras.map(o=>o.year))].sort((a,b)=>b-a);
+  document.getElementById('stats-grid').innerHTML=`
+    <div class="stat-c"><div class="stat-n">${obras.length}</div><div class="stat-l">Obras</div></div>
+    <div class="stat-c"><div class="stat-n">${obras.length}</div><div class="stat-l">Certificados</div></div>
+    <div class="stat-c"><div class="stat-n">${yrs.length}</div><div class="stat-l">Años</div></div>
+    <div class="stat-c"><div class="stat-n">${CY}</div><div class="stat-l">Año actual</div></div>`;
+  const tabs=['Todas',...genYears().filter(y=>yrs.includes(y)||y===String(CY))];
+  document.getElementById('yr-tabs').innerHTML=[...new Set(tabs)].map(y=>
+    `<button class="yr-tab ${curF===y?'active':''}" onclick="curF='${y}';renderPanel()">${y}</button>`).join('');
+  renderGrid();
 }
 
-function renderObrasGrid() {
-  const filtered = currentYear_filter === 'Todas'
-    ? obras
-    : obras.filter(o => o.year === currentYear_filter);
-
-  const grid = document.getElementById('obras-grid');
-
-  if (!filtered.length) {
-    grid.innerHTML = `
-      <div class="empty-state" style="grid-column:1/-1;">
-        <i class="ti ti-photo-off"></i>
-        <h3>Sin obras en ${currentYear_filter}</h3>
-        <p>Añade la primera obra de este año o selecciona otro año.</p>
-        <button class="btn-primary" onclick="showView('nueva')"><i class="ti ti-plus"></i> Añadir obra</button>
-      </div>`;
+function renderGrid(){
+  const list=curF==='Todas'?obras:obras.filter(o=>o.year===curF);
+  const g=document.getElementById('obras-grid');
+  if(!list.length){
+    g.innerHTML=`<div class="empty"><i class="ti ti-photo-off"></i><h3>Sin obras en ${curF}</h3><p>Añade la primera o elige otro año.</p><button class="btn-p" onclick="showV('nueva')"><i class="ti ti-plus"></i> Añadir</button></div>`;
     return;
   }
-
-  grid.innerHTML = filtered.map(o => `
-    <div class="obra-card" onclick="openObra('${o.id}')">
-      <div class="obra-thumb">
-        ${o.images && o.images[0]
-          ? `<img src="${o.images[0]}" alt="${o.title}">`
-          : `<div class="obra-thumb-placeholder"><i class="ti ti-tree"></i></div>`}
-        <div class="obra-num-badge">${o.num || '—'}</div>
-        ${!o.title && !o.client ? `<div class="obra-incomplete">Incompleta</div>` : ''}
+  g.innerHTML=list.map(o=>`
+    <div class="obra-c" onclick="openObra('${o.id}')">
+      <div class="obra-th">
+        ${o.images&&o.images[0]?`<img src="${o.images[0]}" alt="${o.title}">`:
+          `<div class="obra-th-ph"><i class="ti ti-tree"></i></div>`}
+        <div class="obra-badge">${o.num||'—'}</div>
+        ${!o.title&&!o.client?'<div class="obra-inc">Incompleta</div>':''}
       </div>
       <div class="obra-info">
-        <div class="obra-title">${o.title || 'Sin título'}</div>
-        <div class="obra-meta">${o.size ? o.size + ' · ' : ''}${o.year}</div>
+        <div class="obra-tit">${o.title||'Sin título'}</div>
+        <div class="obra-met">${[o.size,o.year].filter(Boolean).join(' · ')}</div>
       </div>
-    </div>
-  `).join('') + `
-    <button class="add-card" onclick="showView('nueva')">
-      <i class="ti ti-plus"></i>
-      <span>Nueva obra</span>
-    </button>`;
+    </div>`).join('')+
+    `<button class="add-c" onclick="showV('nueva')"><i class="ti ti-plus"></i><span>Nueva obra</span></button>`;
 }
 
-function openObra(id) {
-  currentObraId = id;
-  const o = obras.find(x => x.id === id);
-  if (!o) return;
-  renderCert(o);
-  showView('cert');
-  document.getElementById('nav-panel').classList.add('active');
+/* ─ CERT ─ */
+function openObra(id){curId=id;renderCert(obras.find(o=>o.id===id));showV('cert');document.getElementById('nav-panel').classList.add('active');}
+
+function renderCert(o){
+  if(!o)return;
+  document.getElementById('c-year').textContent=o.year||'—';
+  document.getElementById('c-num').textContent=o.num||'—';
+  document.getElementById('c-size').textContent=o.size||'—';
+  document.getElementById('c-desc').textContent=o.desc||'—';
+  document.getElementById('c-client').textContent=o.client||'—';
+  document.getElementById('c-date').textContent=o.date?new Date(o.date+'T12:00').toLocaleDateString('es-ES',{day:'numeric',month:'long',year:'numeric'}):'—';
+  document.getElementById('c-price').textContent=o.price||'—';
+  document.getElementById('cert-bread').textContent=[o.title,o.num].filter(Boolean).join(' · ');
+  const pw=document.getElementById('cert-photo-wrap');
+  pw.innerHTML=o.images&&o.images[0]
+    ?`<img src="${o.images[0]}" class="cert-photo" alt="obra">`
+    :`<div class="cert-photo-ph"><i class="ti ti-tree"></i></div>`;
+  genQR(o);
 }
 
-function renderCert(o) {
-  document.getElementById('cert-title').textContent = o.title || 'Sin título';
-  document.getElementById('cert-id').textContent = [o.num, o.year, o.materials].filter(Boolean).join(' · ');
-  document.getElementById('cert-breadcrumb').textContent = o.num || '';
-  document.getElementById('cert-num').textContent = o.num || '—';
-  document.getElementById('cert-year').textContent = o.year || '—';
-  document.getElementById('cert-size').textContent = o.size || '—';
-  document.getElementById('cert-materials').textContent = o.materials || '—';
-  document.getElementById('cert-client').textContent = o.client || '—';
-  document.getElementById('cert-date').textContent = o.date ? new Date(o.date + 'T12:00:00').toLocaleDateString('es-ES', {day:'numeric',month:'long',year:'numeric'}) : '—';
-  document.getElementById('cert-price').textContent = o.price || '—';
-  document.getElementById('cert-desc').textContent = o.desc || '—';
-  generateQR(o);
+function genQR(o){
+  const url=`${window.location.origin}${window.location.pathname}?cert=${o.id}`;
+  if(typeof QRCode!=='undefined')
+    QRCode.toCanvas(document.getElementById('cert-qr-canvas'),url,{width:100,margin:1,color:{dark:'#7C3A1E',light:'#FFFFFF'}});
 }
 
-function generateQR(o) {
-  const canvas = document.getElementById('qr-canvas');
-  const url = `${window.location.origin}${window.location.pathname}?cert=${o.id}`;
-  if (typeof QRCode !== 'undefined') {
-    QRCode.toCanvas(canvas, url, {
-      width: 90,
-      margin: 1,
-      color: { dark: '#7C4A2D', light: '#FDFAF7' }
-    });
-  }
+function dlQR(){
+  const c=document.getElementById('cert-qr-canvas');
+  const a=document.createElement('a');
+  const o=obras.find(x=>x.id===curId);
+  a.download=`qr-${o?o.num||o.id:'obra'}.png`;
+  a.href=c.toDataURL(); a.click(); toast('QR descargado');
 }
 
-function downloadQR() {
-  const canvas = document.getElementById('qr-canvas');
-  const link = document.createElement('a');
-  const o = obras.find(x => x.id === currentObraId);
-  link.download = `qr-${o ? o.num || o.id : 'obra'}.png`;
-  link.href = canvas.toDataURL();
-  link.click();
-  showToast('QR descargado');
+function editCur(){
+  const o=obras.find(x=>x.id===curId); if(!o)return;
+  editId=o.id;
+  document.getElementById('form-title').textContent='Editar obra';
+  document.getElementById('btn-del').style.display='inline-flex';
+  document.getElementById('f-num').value=o.num||'';
+  document.getElementById('f-year').value=o.year||CY;
+  document.getElementById('f-size').value=o.size||'';
+  document.getElementById('f-mat').value=o.materials||'';
+  document.getElementById('f-title').value=o.title||'';
+  document.getElementById('f-client').value=o.client||'';
+  document.getElementById('f-date').value=o.date||'';
+  document.getElementById('f-price').value=o.price||'';
+  document.getElementById('f-desc').value=o.desc||'';
+  pendImgs=o.images?[...o.images]:[];
+  renderPrevs(); showV('nueva');
 }
 
-function editObra() {
-  const o = obras.find(x => x.id === currentObraId);
-  if (!o) return;
-  editingId = o.id;
-  document.getElementById('form-page-title').textContent = 'Editar obra';
-  document.getElementById('btn-delete').style.display = 'inline-flex';
-  document.getElementById('f-num').value = o.num || '';
-  document.getElementById('f-year').value = o.year || currentYear;
-  document.getElementById('f-size').value = o.size || '';
-  document.getElementById('f-materials').value = o.materials || '';
-  document.getElementById('f-title').value = o.title || '';
-  document.getElementById('f-client').value = o.client || '';
-  document.getElementById('f-date').value = o.date || '';
-  document.getElementById('f-price').value = o.price || '';
-  document.getElementById('f-desc').value = o.desc || '';
-  pendingImages = o.images ? [...o.images] : [];
-  renderPreviews();
-  showView('nueva');
+function cancelForm(){resetForm();curId?openObra(curId):showV('panel');}
+
+function resetForm(){
+  editId=null;pendImgs=[];
+  document.getElementById('form-title').textContent='Nueva obra';
+  document.getElementById('btn-del').style.display='none';
+  ['f-num','f-size','f-mat','f-title','f-client','f-price','f-desc'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-date').value='';
+  document.getElementById('f-year').value=CY;
+  document.getElementById('prev-grid').innerHTML='';
 }
 
-function cancelForm() {
-  resetForm();
-  if (currentObraId) openObra(currentObraId);
-  else showView('panel');
-}
-
-function resetForm() {
-  editingId = null;
-  pendingImages = [];
-  document.getElementById('form-page-title').textContent = 'Nueva obra';
-  document.getElementById('btn-delete').style.display = 'none';
-  ['f-num','f-size','f-materials','f-title','f-client','f-price','f-desc'].forEach(id => {
-    document.getElementById(id).value = '';
-  });
-  document.getElementById('f-date').value = '';
-  document.getElementById('f-year').value = currentYear;
-  document.getElementById('preview-grid').innerHTML = '';
-}
-
-function saveObra() {
-  const year = document.getElementById('f-year').value;
-  const num = document.getElementById('f-num').value.trim();
-  const title = document.getElementById('f-title').value.trim();
-
-  if (!year) { alert('Selecciona al menos el año de la obra.'); return; }
-
-  const data = {
-    id: editingId || ('wd-' + Date.now()),
-    num: num || `WD-${year}-${String(obras.length + 1).padStart(3,'0')}`,
-    year,
-    title,
-    size: document.getElementById('f-size').value.trim(),
-    materials: document.getElementById('f-materials').value.trim(),
-    client: document.getElementById('f-client').value.trim(),
-    date: document.getElementById('f-date').value,
-    price: document.getElementById('f-price').value.trim(),
-    desc: document.getElementById('f-desc').value.trim(),
-    images: pendingImages
+function saveObra(){
+  const year=document.getElementById('f-year').value;
+  if(!year){alert('Elige el año.');return;}
+  const data={
+    id:editId||('o'+Date.now()),
+    num:document.getElementById('f-num').value.trim()||`WD-${year}-${String(obras.length+1).padStart(3,'0')}`,
+    year, size:document.getElementById('f-size').value.trim(),
+    materials:document.getElementById('f-mat').value.trim(),
+    title:document.getElementById('f-title').value.trim(),
+    client:document.getElementById('f-client').value.trim(),
+    date:document.getElementById('f-date').value,
+    price:document.getElementById('f-price').value.trim(),
+    desc:document.getElementById('f-desc').value.trim(),
+    images:pendImgs
   };
-
-  if (editingId) {
-    const idx = obras.findIndex(x => x.id === editingId);
-    if (idx >= 0) obras[idx] = data;
-  } else {
-    obras.push(data);
-  }
-  saveData();
-  currentObraId = data.id;
-  showToast(editingId ? 'Obra actualizada' : 'Obra guardada correctamente');
-  resetForm();
-  renderCert(data);
-  showView('cert');
+  if(editId){const i=obras.findIndex(x=>x.id===editId);if(i>=0)obras[i]=data;}
+  else obras.push(data);
+  save();curId=data.id;
+  toast(editId?'Obra actualizada':'Obra guardada');
+  resetForm();renderCert(data);showV('cert');
   document.getElementById('nav-panel').classList.add('active');
 }
 
-function deleteObra() {
-  document.getElementById('modal-delete').classList.add('open');
+function askDel(){document.getElementById('modal-del').classList.add('open');}
+function closeMdl(){document.getElementById('modal-del').classList.remove('open');}
+function confirmDel(){
+  obras=obras.filter(x=>x.id!==editId);save();closeMdl();resetForm();curId=null;
+  toast('Obra eliminada');showV('panel');
 }
 
-function confirmDelete() {
-  obras = obras.filter(x => x.id !== editingId);
-  saveData();
-  closeModal('modal-delete');
-  resetForm();
-  currentObraId = null;
-  showToast('Obra eliminada');
-  showView('panel');
-}
-
-function closeModal(id) {
-  document.getElementById(id).classList.remove('open');
-}
-
-function handleImages(e) {
-  const files = Array.from(e.target.files);
-  files.forEach(f => {
-    const reader = new FileReader();
-    reader.onload = ev => {
-      pendingImages.push(ev.target.result);
-      renderPreviews();
-    };
-    reader.readAsDataURL(f);
+function handleImgs(e){
+  Array.from(e.target.files).forEach(f=>{
+    const r=new FileReader();
+    r.onload=ev=>{pendImgs.push(ev.target.result);renderPrevs();};
+    r.readAsDataURL(f);
   });
 }
 
-function renderPreviews() {
-  const grid = document.getElementById('preview-grid');
-  grid.innerHTML = pendingImages.map((src, i) => `
-    <div style="position:relative;display:inline-block;">
-      <img src="${src}" class="preview-img">
-      <button onclick="removeImg(${i})" style="position:absolute;top:-6px;right:-6px;background:var(--warm);color:#fff;border:none;border-radius:50%;width:20px;height:20px;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;padding:0;">×</button>
-    </div>
-  `).join('');
+function renderPrevs(){
+  document.getElementById('prev-grid').innerHTML=pendImgs.map((s,i)=>
+    `<div style="position:relative;display:inline-block;">
+      <img src="${s}" class="prev-img">
+      <button onclick="rmImg(${i})" style="position:absolute;top:-5px;right:-5px;background:var(--warm);color:#fff;border:none;border-radius:50%;width:20px;height:20px;cursor:pointer;font-size:13px;line-height:20px;text-align:center;padding:0;">×</button>
+    </div>`).join('');
 }
 
-function removeImg(i) {
-  pendingImages.splice(i, 1);
-  renderPreviews();
-}
+function rmImg(i){pendImgs.splice(i,1);renderPrevs();}
 
-function renderDossier() {
-  const count = document.getElementById('dossier-count');
-  count.textContent = `${obras.length} ${obras.length === 1 ? 'obra registrada' : 'obras registradas'}`;
-
-  const allYears = [...new Set(obras.map(o => o.year))].sort((a,b) => b - a);
-  const tabsEl = document.getElementById('dossier-year-tabs');
-  const dossierFilter = window._dossierFilter || 'Todas';
-
-  tabsEl.innerHTML = ['Todas', ...allYears].map(y => `
-    <button class="year-tab ${dossierFilter === y ? 'active' : ''}"
-      onclick="window._dossierFilter='${y}';renderDossier()" style="margin:2px;">${y}</button>
-  `).join('');
-
-  const filtered = dossierFilter === 'Todas' ? obras : obras.filter(o => o.year === dossierFilter);
-  const grid = document.getElementById('dossier-grid');
-
-  if (!filtered.length) {
-    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;">
-      <i class="ti ti-photo-off"></i>
-      <h3>Sin obras en este periodo</h3>
-      <p>Añade obras desde el panel de administración.</p>
-    </div>`;
-    return;
-  }
-
-  grid.innerHTML = filtered.map(o => `
-    <div class="dossier-card">
-      <div class="dossier-thumb">
-        ${o.images && o.images[0]
-          ? `<img src="${o.images[0]}" alt="${o.title}">`
-          : `<div class="dossier-thumb-ph"><i class="ti ti-tree"></i></div>`}
+/* ─ DOSSIER ─ */
+function buildDos(listId,tabsId,countId,filterVar,setFilter){
+  const yrs=[...new Set(obras.map(o=>o.year))].sort((a,b)=>b-a);
+  const countEl=document.getElementById(countId);
+  if(countEl)countEl.textContent=`${obras.length} ${obras.length===1?'obra':'obras'} registradas`;
+  const tabsEl=document.getElementById(tabsId);
+  if(tabsEl)tabsEl.innerHTML=['Todas',...yrs].map(y=>
+    `<button class="yr-tab ${filterVar()===y?'active':''}" onclick="${setFilter}('${y}')">${y}</button>`).join('');
+  const list=filterVar()==='Todas'?obras:obras.filter(o=>o.year===filterVar());
+  const g=document.getElementById(listId);
+  if(!g)return;
+  if(!list.length){g.innerHTML=`<div class="empty"><i class="ti ti-photo-off"></i><h3>Sin obras aún</h3></div>`;return;}
+  g.innerHTML=list.map(o=>`
+    <div class="dos-card">
+      <div class="dos-th">
+        ${o.images&&o.images[0]?`<img src="${o.images[0]}" alt="${o.title}">`:
+          `<div class="dos-th-ph"><i class="ti ti-tree"></i></div>`}
       </div>
-      <div class="dossier-info">
-        <div class="dossier-title">${o.title || 'Obra ' + o.num}</div>
-        <div class="dossier-chips">
-          ${o.year ? `<span class="chip">${o.year}</span>` : ''}
-          ${o.size ? `<span class="chip">${o.size}</span>` : ''}
-          ${o.materials ? `<span class="chip">${o.materials}</span>` : ''}
+      <div class="dos-info">
+        <div class="dos-tit">${o.title||'Obra '+o.num}</div>
+        <div class="dos-chips">
+          ${o.year?`<span class="chip">${o.year}</span>`:''}
+          ${o.size?`<span class="chip">${o.size}</span>`:''}
+          ${o.materials?`<span class="chip">${o.materials}</span>`:''}
         </div>
-        <div class="dossier-private-note">
-          <i class="ti ti-lock"></i>
-          Detalles del cliente: acceso privado con QR
-        </div>
+        <div class="dos-priv"><i class="ti ti-lock"></i> Datos del cliente: solo con QR</div>
       </div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  document.getElementById('toast-msg').textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
+function renderDosAdmin(){buildDos('dos-grid-admin','dos-tabs-admin','dos-count-admin',()=>dosF,'setDosF');}
+function renderDosPublic(){buildDos('dos-grid-pub','dos-tabs-pub','dos-count-pub',()=>dosFpub,'setDosFpub');}
+function setDosF(y){dosF=y;renderDosAdmin();}
+function setDosFpub(y){dosFpub=y;renderDosPublic();}
+
+function toast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toast-msg').textContent=msg;
+  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);
 }
 
-document.getElementById('pwd-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter') tryLogin();
-});
+document.getElementById('pwd').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+init();
 </script>
 </body>
 </html>

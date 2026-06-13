@@ -79,7 +79,7 @@ body{font-family:var(--fb);background:var(--surf);color:var(--ink);min-height:10
 .stat-n{font-family:var(--fd);font-size:2rem;font-weight:500;color:var(--warm);line-height:1;}
 .stat-l{font-size:11px;color:var(--ink3);margin-top:5px;text-transform:uppercase;letter-spacing:.05em;}
 .yr-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.5rem;}
-.yr-tab{padding:5px 13px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;border:1.5px solid var(--bdr2);background:none;color:var(--ink2);transition:all .15s;font-family:var(--fb);}
+.yr-tab{display:inline-block;padding:5px 13px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;border:1.5px solid var(--bdr2);background:none;color:var(--ink2);transition:all .15s;font-family:var(--fb);text-decoration:none;}
 .yr-tab.active,.yr-tab:hover{background:var(--warm);border-color:var(--warm);color:#fff;}
 .yr-tab.active{pointer-events:none;}
 .obras-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px;}
@@ -290,18 +290,19 @@ body{font-family:var(--fb);background:var(--surf);color:var(--ink);min-height:10
 .statement-text p{margin-bottom:1.2rem;}
 .statement-text p:first-child::first-letter{font-family:var(--fd);font-size:3.2rem;font-weight:600;color:var(--warm);float:left;line-height:1;margin:.05em .15em 0 0;}
 
-/* Portfolio grid with technical sheet */
-.portfolio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px;}
-.pf-card{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden;text-decoration:none;color:inherit;display:block;transition:box-shadow .2s,transform .2s;}
-.pf-card:hover{box-shadow:var(--shL);transform:translateY(-3px);}
-.pf-thumb{aspect-ratio:4/5;background:var(--warm-pale);overflow:hidden;display:flex;align-items:center;justify-content:center;}
+/* Portfolio grid with technical sheet, grouped by year */
+.pf-year-group{margin-bottom:2.4rem;}
+.pf-year-heading{font-family:var(--fd);font-size:1.4rem;font-weight:500;color:var(--ink);padding-bottom:.5rem;margin-bottom:1rem;border-bottom:1.5px solid var(--bdr2);}
+.pf-year-grid,.portfolio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(135px,1fr));gap:12px;}
+.pf-card{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r2);overflow:hidden;text-decoration:none;color:inherit;display:block;transition:box-shadow .2s,transform .2s;}
+.pf-card:hover{box-shadow:var(--sh);transform:translateY(-2px);}
+.pf-thumb{aspect-ratio:1;background:var(--warm-pale);overflow:hidden;display:flex;align-items:center;justify-content:center;}
 .pf-thumb img{width:100%;height:100%;object-fit:cover;}
-.pf-thumb-ph{width:60px;height:60px;border-radius:50%;background:var(--warm-mid);display:flex;align-items:center;justify-content:center;}
-.pf-thumb-ph i{font-size:24px;color:var(--warm);}
-.pf-body{padding:14px 16px;}
-.pf-title{font-family:var(--fd);font-size:1.1rem;font-weight:500;color:var(--ink);margin-bottom:8px;}
-.pf-sheet{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11.5px;color:var(--ink3);border-top:1px solid var(--bdr);padding-top:8px;}
-.pf-sheet b{color:var(--ink2);font-weight:500;}
+.pf-thumb-ph{width:40px;height:40px;border-radius:50%;background:var(--warm-mid);display:flex;align-items:center;justify-content:center;}
+.pf-thumb-ph i{font-size:18px;color:var(--warm);}
+.pf-body{padding:8px 10px;}
+.pf-title{font-family:var(--fd);font-size:.92rem;font-weight:500;color:var(--ink);line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pf-sheet{font-size:10.5px;color:var(--ink3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
 /* Pasaportes registry list */
 .pasaportes-list{display:flex;flex-direction:column;border-top:1px solid var(--bdr);}
@@ -335,6 +336,11 @@ body{font-family:var(--fb);background:var(--surf);color:var(--ink);min-height:10
 .dossier-footer div{font-size:12px;color:var(--ink3);}
 
 /* ═══ PASSPORT (Pasaporte Digital individual) ═══ */
+.passport-main-image{width:100%;aspect-ratio:4/3;overflow:hidden;background:var(--warm-pale);border-bottom:1px solid var(--bdr);}
+.passport-main-image img{width:100%;height:100%;object-fit:cover;display:block;}
+.passport-main-image-ph{width:100%;aspect-ratio:4/3;background:var(--warm-pale);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--bdr);}
+.passport-main-image-ph i{font-size:48px;color:var(--warm-mid);}
+.passport-fields-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;padding:1.2rem 2rem;border-bottom:1px solid var(--bdr);}
 .passport-status{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;letter-spacing:.06em;color:#2D7A2D;background:#EAF3DE;padding:5px 12px;border-radius:20px;text-transform:uppercase;}
 .passport-status i{font-size:14px;}
 .passport-serie-badge{font-family:var(--fd);font-size:13px;color:var(--ink3);letter-spacing:.05em;}
@@ -361,7 +367,9 @@ body{font-family:var(--fb);background:var(--surf);color:var(--ink);min-height:10
   .hero-portada{min-height:80vh;}
   .pp-row{grid-template-columns:1fr;gap:4px;text-align:left;}
   .pp-link{justify-self:start;}
-  .passport-meta-row,.passport-gallery,.passport-authenticity,.passport-verify-note{padding-left:1rem;padding-right:1rem;}
+  .passport-meta-row,.passport-gallery,.passport-authenticity,.passport-verify-note,.passport-fields-row{padding-left:1rem;padding-right:1rem;}
+  .passport-fields-row{gap:.6rem 1rem;}
+  .passport-main-image,.passport-main-image-ph{aspect-ratio:4/3;}
 }
 </style>
 </head>
@@ -382,7 +390,6 @@ body{font-family:var(--fb);background:var(--surf);color:var(--ink);min-height:10
         <a href="#sec-inicio" class="dnav-link">Inicio</a>
         <a href="#sec-statement" class="dnav-link">Statement</a>
         <a href="#sec-portfolio" class="dnav-link">Portfolio</a>
-        <a href="#sec-pasaportes" class="dnav-link">Pasaportes</a>
         <a href="#sec-cv" class="dnav-link">CV</a>
         <a href="#sec-contacto" class="dnav-link">Contacto</a>
       </div>
@@ -420,15 +427,6 @@ body{font-family:var(--fb);background:var(--surf);color:var(--ink);min-height:10
       <h2 class="section-title">Muestra de obra</h2>
       <div class="yr-tabs" id="dos-tabs-pub"></div>
       <div class="portfolio-grid" id="dos-grid-pub"></div>
-    </div>
-  </section>
-
-  <section id="sec-pasaportes" class="dossier-section">
-    <div class="section-inner">
-      <div class="section-label">Pasaportes Digitales</div>
-      <h2 class="section-title">Archivo de Pasaportes de Obra</h2>
-      <p class="section-intro">Cada obra de WoodDany Pujol cuenta con un Pasaporte Digital que certifica su autenticidad, forma parte del archivo permanente y puede verificarse de forma pública en cualquier momento.</p>
-      <div class="pasaportes-list" id="pasaportes-list"></div>
     </div>
   </section>
 
@@ -875,11 +873,13 @@ function renderCertHTML(containerId, pub, priv, isAdmin) {
       <div class="cert-big-under"><div class="cert-de-auth">de Obra</div><div class="cert-big-line"></div></div>
       ${pub.title ? `<div style="font-family:var(--fd);font-size:1.25rem;color:var(--ink2);margin-top:.7rem;">${esc(pub.title)}</div>` : ''}
     </div>
-    <div class="cert-fields-row">
+    ${pub.main_image_url
+      ? `<div class="passport-main-image"><img src="${pub.main_image_url}" alt="${esc(pub.title)||''}" loading="lazy"></div>`
+      : `<div class="passport-main-image-ph"><i class="ti ti-tree"></i></div>`}
+    <div class="passport-fields-row">
       <div class="cert-f"><div class="cert-fl">Serie:</div><div class="cert-fv">${esc(pub.serie)||'—'}</div></div>
       <div class="cert-f"><div class="cert-fl">Año:</div><div class="cert-fv">${[pub.month,pub.year].filter(Boolean).join(' ')||'—'}</div></div>
       <div class="cert-f"><div class="cert-fl">Dimensiones:</div><div class="cert-fv">${esc(pub.dimensions)||'—'}</div></div>
-      <div>${pub.main_image_url ? `<img src="${pub.main_image_url}" class="cert-photo" alt="">` : `<div class="cert-photo-ph"><i class="ti ti-tree"></i></div>`}</div>
     </div>
     ${metaChips.length ? `<div class="passport-meta-row">${metaChips.join('')}</div>` : ''}
     ${galleryImgs.length ? `<div class="passport-gallery">${galleryImgs.map(u=>`<img src="${u}" alt="" loading="lazy">`).join('')}</div>` : ''}
@@ -1239,9 +1239,8 @@ function renderStatement() {
 // ── PORTFOLIO ─────────────────────────────────────
 function pfCardHTML(o) {
   const sheet = [];
-  if (o.technique) sheet.push(`<span><b>Técnica:</b> ${esc(o.technique)}</span>`);
-  if (o.dimensions) sheet.push(`<span><b>Medidas:</b> ${esc(o.dimensions)}</span>`);
-  sheet.push(`<span><b>Año:</b> ${o.year || '—'}</span>`);
+  if (o.technique) sheet.push(`<span>${esc(o.technique)}</span>`);
+  if (o.dimensions) sheet.push(`<span>${esc(o.dimensions)}</span>`);
   return `
     <a href="?cert=${o.id}" class="pf-card">
       <div class="pf-thumb">
@@ -1249,7 +1248,7 @@ function pfCardHTML(o) {
       </div>
       <div class="pf-body">
         <div class="pf-title">${esc(o.title) || 'Obra ' + esc(o.serie || '')}</div>
-        <div class="pf-sheet">${sheet.join('')}</div>
+        ${sheet.length ? `<div class="pf-sheet">${sheet.join(' · ')}</div>` : ''}
       </div>
     </a>`;
 }
@@ -1257,21 +1256,32 @@ function pfCardHTML(o) {
 function renderPortfolioGrid(obras) {
   const yrs = [...new Set(obras.map(o => o.year))].sort((a,b) => b-a);
   const tel = document.getElementById('dos-tabs-pub');
-  tel.innerHTML = ['Todas', ...yrs].map(y =>
-    `<button class="yr-tab ${String(curDosFilter)===String(y)?'active':''}" onclick="curDosFilter='${y}';renderPortfolioGrid(window._publicObras||[])">${y}</button>`).join('');
-
-  const list = curDosFilter === 'Todas' ? obras : obras.filter(o => String(o.year) === String(curDosFilter));
   const g = document.getElementById('dos-grid-pub');
-  if (!list.length) {
+
+  if (!obras.length) {
+    tel.innerHTML = '';
     g.innerHTML = `<div class="empty"><i class="ti ti-photo-off"></i><h3>Sin obras públicas</h3><p>Cuando marques obras como públicas aparecerán aquí.</p></div>`;
     return;
   }
-  g.innerHTML = list.map(pfCardHTML).join('');
+
+  tel.innerHTML = yrs.length > 1
+    ? yrs.map(y => `<a href="#pf-year-${y}" class="yr-tab">${y}</a>`).join('')
+    : '';
+
+  g.innerHTML = yrs.map(y => {
+    const items = obras.filter(o => o.year === y);
+    return `
+      <div class="pf-year-group">
+        <h3 class="pf-year-heading" id="pf-year-${y}">${y}</h3>
+        <div class="pf-year-grid">${items.map(pfCardHTML).join('')}</div>
+      </div>`;
+  }).join('');
 }
 
 // ── PASAPORTES (registro) ─────────────────────────
 function renderPasaportesList(obras) {
   const g = document.getElementById('pasaportes-list');
+  if (!g) return;
   if (!obras.length) {
     g.innerHTML = `<div class="empty"><i class="ti ti-certificate"></i><h3>Archivo en construcción</h3><p>Los Pasaportes Digitales de cada obra aparecerán aquí.</p></div>`;
     return;
@@ -1344,7 +1354,6 @@ async function loadPublicDossier() {
 
   renderInicio(obras);
   renderPortfolioGrid(obras);
-  renderPasaportesList(obras);
 }
 
 // ── SCROLL SPY (nav activa según sección visible) ─
